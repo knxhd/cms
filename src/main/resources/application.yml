@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cms?serverTimezone=UTC
+    username: root
+    password: tlh1992
+server:
+  port: 8083
+  servlet:
+    context-path: /cms
+
+mybatis:
+  mapper-locations: classpath*:mapper/**/*.xml

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.knxhd.cms.mapper.pub.PubFunctionMapper">
+    <resultMap id="pubFunctionMap" type="com.knxhd.cms.entity.pub.PubFunction">
+        <id column="function_id" property="functionId"/>
+        <result property="functionName" column="function_name"/>
+        <result property="functionUrl" column="function_url"/>
+        <result property="description" column="description"/>
+        <collection property="children" ofType="com.knxhd.cms.entity.pub.PubFunction" column="function_id" select="findById"/>
+    </resultMap>
+
+
+    <select id="find" resultMap="pubFunctionMap">
+        SELECT
+            f.function_id ,
+            f.function_name,
+            f.function_url,
+            f.description
+        FROM cms_pub_function f where f.parentFunction is null
+    </select>
+
+    <select id="findById" resultMap="pubFunctionMap" parameterType="string">
+         SELECT
+                f.function_id ,
+                f.function_name,
+                f.function_url,
+                f.description
+         FROM cms_pub_function f where parentFunction = #{functionId}
+    </select>
+
+</mapper>
