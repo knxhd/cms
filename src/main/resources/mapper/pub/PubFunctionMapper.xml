@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.knxhd.cms.mapper.pub.PubFunctionMapper">
-    <resultMap id="pubFunctionMap" type="com.knxhd.cms.entity.pub.PubFunction">
+    <resultMap id="pubFunctionMap" type="com.knxhd.cms.dto.pub.PubFunctionDto">
         <id column="function_id" property="functionId"/>
         <result property="functionName" column="function_name"/>
         <result property="functionUrl" column="function_url"/>
         <result property="description" column="description"/>
-        <collection property="children" ofType="com.knxhd.cms.entity.pub.PubFunction" column="function_id" select="findById"/>
+        <collection property="children" ofType="com.knxhd.cms.dto.pub.PubFunctionDto" column="function_id" select="findByParentId"/>
+    </resultMap>
+
+    <resultMap id="baseFunctionMap" type="com.knxhd.cms.dto.pub.PubFunctionDto">
+        <id column="function_id" property="functionId"/>
+        <result property="functionName" column="function_name"/>
+        <result property="functionUrl" column="function_url"/>
+        <result property="description" column="description"/>
     </resultMap>
 
 
@@ -19,13 +26,22 @@
         FROM cms_pub_function f where f.parentFunction is null
     </select>
 
-    <select id="findById" resultMap="pubFunctionMap" parameterType="string">
+    <select id="findByParentId" resultMap="baseFunctionMap" parameterType="string">
          SELECT
                 f.function_id ,
                 f.function_name,
                 f.function_url,
                 f.description
          FROM cms_pub_function f where parentFunction = #{functionId}
+    </select>
+
+    <select id="findById" resultMap="pubFunctionMap" parameterType="string">
+         SELECT
+                f.function_id ,
+                f.function_name,
+                f.function_url,
+                f.description
+         FROM cms_pub_function f where function_id = #{functionId}
     </select>
 
 </mapper>

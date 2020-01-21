@@ -1,5 +1,6 @@
 package com.knxhd.cms.mapper.pub;
 
+import com.knxhd.cms.dto.pub.PubFunctionDto;
 import com.knxhd.cms.entity.pub.PubFunction;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,6 +16,8 @@ public interface PubFunctionMapper {
 
     List<PubFunction> find();
 
-    List<PubFunction> findById(String functionId);
+    List<PubFunction> findByParentId(String functionId);
+
+    PubFunctionDto findById(String functionId);
 
 }

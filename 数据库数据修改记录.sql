@@ -1,3 +1,4 @@
+/**--------------------------------------------------公共菜单----------------------------------------------------------**/
 insert into cms_pub_function(function_id, function_name, function_url, description, parentFunction)
 values ('1', '首页', '/', '首页', null);
 
@@ -52,4 +53,13 @@ values ('4', '小册', '/books', '小册', null);
 
 insert into cms_pub_function(function_id, function_name, function_url, description, parentFunction)
 values ('5', '活动', '/activity', '活动', null);
-
+/**------------------------------------------------------公共文章-----------------------------------------------**/
+insert into cms_pub_article (id, title, author, createTime, function_id, likeNum, commentNum)
+values (UUID(),'webpack 最佳配置指北','b781f5f0-3c13-11ea-8b89-00ff41181cd7',sysdate(),'121',10,50);
+insert into cms_pub_article (id, title, author, createTime, function_id, likeNum, commentNum)
+values (UUID(),'图文并茂，为你揭开“单点登录“的神秘面纱','b781f5f0-3c13-11ea-8b89-00ff41181cd7',sysdate(),'121',10,50);
+/**---------------------------------------------------用户-------------------------------------------------------**/
+INSERT INTO cms_ath_user (user_id, user_name, login_name, passWord, headPortrait, tel, qq)
+values (UUID(),'柯南小海盗','knxhd','001','F:\\study\\coding\\cms\\headPortrait\\default.jpg',null,null);
+INSERT INTO cms_ath_user (user_id, user_name, login_name, passWord, headPortrait, tel, qq)
+values (UUID(),'灰原哀','huiyuan','001','F:\\study\\coding\\cms\\headPortrait\\default.jpg',null,null);

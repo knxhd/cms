@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.knxhd.cms.mapper.ath.AthUserMapper">
+    <resultMap id="athUserMap" type="com.knxhd.cms.dto.ath.AthUserDto">
+        <id property="userId" column="userId"/>
+        <result property="userName" column="userName"/>
+        <result property="loginName" column="loginName"/>
+        <result property="password" column="password"/>
+        <result property="headportrait" column="headportrait"/>
+        <result property="tel" column="tel"/>
+        <result property="qq" column="qq"/>
+    </resultMap>
+
+
+    <select id="findByUser" parameterType="string" resultMap="athUserMap">
+        SELECT u.user_id AS userId,
+        u.user_name AS userName,
+        u.login_name AS loginUser,
+        u.passWord AS password,
+        u.headPortrait AS headportrait,
+        u.tel AS tel,
+        u.qq AS qq
+        FROM cms_ath_user u
+        where 1=1
+        <if test="userId!=null">
+          AND   u.user_id = #{userId}
+        </if>
+        <if test="userName!=null and username!=''">
+            AND u.user_name = #{userName}
+        </if>
+        <if test="loginName!=null and loginName!=''">
+            AND u.login_name = #{loginName}
+        </if>
+    </select>
+
+    <select id="findById" parameterType="string" resultMap="athUserMap">
+        SELECT u.user_id AS userId,
+        u.user_name AS userName,
+        u.login_name AS loginUser,
+        u.passWord AS password,
+        u.headPortrait AS headportrait,
+        u.tel AS tel,
+        u.qq AS qq
+        FROM cms_ath_user u
+        where
+            u.user_id = #{userId}
+    </select>
+</mapper>

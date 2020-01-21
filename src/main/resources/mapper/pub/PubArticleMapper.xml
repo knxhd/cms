@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.knxhd.cms.mapper.pub.PubArticleMapper">
+    <resultMap id="BaseResultMap" type="com.knxhd.cms.dto.pub.PubArticleDto">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="createTime" property="createTime"/>
+        <result column="likeNum" jdbcType="INTEGER" property="likeNum"/>
+        <result column="commentNum" jdbcType="INTEGER" property="commentNum"/>
+        <association property="author" javaType="com.knxhd.cms.dto.ath.AthUserDto"
+                     select="com.knxhd.cms.mapper.ath.AthUserMapper.findById" column="userId">
+            <id property="userId" column="userId"/>
+            <result property="userName" column="userName"/>
+            <result property="loginName" column="loginName"/>
+            <result property="password" column="password"/>
+            <result property="headportrait" column="headportrait"/>
+            <result property="tel" column="tel"/>
+            <result property="qq" column="qq"/>
+        </association>
+        <association property="pubFunction" javaType="com.knxhd.cms.dto.pub.PubFunctionDto"
+                     select="com.knxhd.cms.mapper.pub.PubFunctionMapper.findById" column="function_id">
+            <id column="function_id" property="functionId"/>
+            <result property="functionName" column="function_name"/>
+            <result property="functionUrl" column="function_url"/>
+            <result property="description" column="description"/>
+        </association>
+    </resultMap>
+
+    <select id="find" resultMap="BaseResultMap" parameterType="com.knxhd.cms.dto.pub.PubArticleDto">
+        SELECT
+        a.title AS title,
+        a.function_id ,
+        a.commentNum,
+        a.createTime,
+        a.likeNum,
+        a.author AS userId
+        FROM cms_pub_article a
+        WHERE 1=1
+        <if test="title!=null and title!=''">
+            a.title =#{title}
+        </if>
+        <if test="author!=null and author!=''">
+            a.author = #{author}
+        </if>
+    </select>
+
+</mapper>
